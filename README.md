@@ -36,7 +36,7 @@ _This App is part of jonas schmedtmann's React Course on [Udemy](https://www.ude
    ```
 3. **Start the development server:**
    ```bash
-   npm start
+   npm dev
    ```
 
 ## Usage
