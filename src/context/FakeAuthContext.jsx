@@ -1,5 +1,6 @@
 import { createContext, useContext, useReducer } from "react";
 import PropTypes from "prop-types";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 const AuthContext = createContext();
 
@@ -37,7 +38,8 @@ const userReducer = (state, action) => {
 };
 
 export default function AuthContextProvider({ children }) {
-  const [user, dispatch] = useReducer(userReducer, initialState);
+  const [store, setStore] = useLocalStorage("user", initialState);
+  const [user, dispatch] = useReducer(userReducer, store);
 
   function login(email, password) {
     if (email === FAKE_USER.email && password === FAKE_USER.password) {
@@ -45,11 +47,15 @@ export default function AuthContextProvider({ children }) {
         type: "LOGIN",
         payload: FAKE_USER,
       });
+
+      setStore({ ...FAKE_USER, isAuthenticated: true });
     }
   }
 
   function logout() {
     dispatch({ type: "LOGOUT" });
+
+    setStore({ isAuthenticated: false });
   }
 
   return (
