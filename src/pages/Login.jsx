@@ -15,7 +15,7 @@ export default function Login() {
 
   useEffect(() => {
     if (isAuthenticated) navigate("/app/cities", { replace: true });
-  }, [isAuthenticated]);
+  }, [isAuthenticated, navigate]);
 
   function handleSubmit(e) {
     e.preventDefault();

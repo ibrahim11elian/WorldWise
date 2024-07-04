@@ -21,7 +21,7 @@ function City() {
         console.log(error);
       }
     })();
-  }, [id]);
+  }, [fetchCity, id]);
 
   if (isLoading) return <Spinner />;
   if (error) return <Message message={error} />;
