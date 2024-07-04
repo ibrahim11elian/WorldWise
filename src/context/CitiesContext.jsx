@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useCallback, useContext, useReducer } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 
@@ -63,7 +63,8 @@ const citiesReducer = (state, action) => {
 
 export default function CitiesProvider({ children }) {
   const [state, dispatch] = useReducer(citiesReducer, initialState);
-  async function addCity(newCity) {
+
+  const addCity = useCallback(async function (newCity) {
     try {
       dispatch({ type: "LOADING" });
       const response = await axios.post(`${baseURL}/cities`, newCity);
@@ -74,23 +75,27 @@ export default function CitiesProvider({ children }) {
         payload: "There was an error adding the city.",
       });
     }
-  }
+  }, []);
 
-  async function fetchCity(id) {
-    try {
-      dispatch({ type: "LOADING" });
+  const fetchCity = useCallback(
+    async function (id) {
+      if (parseInt(id) === state.currentCity.id) return;
+      try {
+        dispatch({ type: "LOADING" });
 
-      const data = await axios.get(`${baseURL}/cities/${id}`);
-      dispatch({ type: "CITY_LOADED", payload: data.data });
-    } catch (error) {
-      dispatch({
-        type: "ERROR",
-        payload: "There was an error fetching the city data",
-      });
-    }
-  }
+        const data = await axios.get(`${baseURL}/cities/${id}`);
+        dispatch({ type: "CITY_LOADED", payload: data.data });
+      } catch (error) {
+        dispatch({
+          type: "ERROR",
+          payload: "There was an error fetching the city data",
+        });
+      }
+    },
+    [state.currentCity.id]
+  );
 
-  async function deleteCity(id) {
+  const deleteCity = useCallback(async function (id) {
     try {
       dispatch({ type: "LOADING" });
 
@@ -102,9 +107,9 @@ export default function CitiesProvider({ children }) {
         payload: "There was an error deleting the city.",
       });
     }
-  }
+  }, []);
 
-  async function fetchCities() {
+  const fetchCities = useCallback(async function () {
     try {
       dispatch({ type: "LOADING" });
 
@@ -116,7 +121,7 @@ export default function CitiesProvider({ children }) {
         payload: "There was an error fetching the cities",
       });
     }
-  }
+  }, []);
 
   return (
     <CitiesContext.Provider
