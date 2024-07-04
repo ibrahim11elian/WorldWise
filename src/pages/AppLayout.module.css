@@ -1,7 +1,42 @@
 .app {
   min-height: 100vh;
-  padding: 2.4rem;
   overscroll-behavior-y: none;
   display: flex;
   position: relative;
+}
+
+.icon {
+  position: absolute;
+  top: 11rem;
+  right: 4.2rem;
+  cursor: pointer;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 5rem;
+  height: 5rem;
+
+  background-color: var(--color-dark--1);
+  border-radius: 7px;
+  box-shadow: 0 0.8rem 2.4rem rgba(36, 42, 46, 0.5);
+}
+
+.icon img {
+  width: 35px;
+  display: block;
+}
+
+@media (min-width: 576px) {
+  .app {
+    padding: 2.5rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .icon {
+    display: none;
+  }
 }
