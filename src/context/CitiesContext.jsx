@@ -79,7 +79,7 @@ export default function CitiesProvider({ children }) {
 
   const fetchCity = useCallback(
     async function (id) {
-      if (parseInt(id) == state.currentCity.id) return;
+      if (id == state.currentCity.id) return;
       try {
         dispatch({ type: "LOADING" });
 
