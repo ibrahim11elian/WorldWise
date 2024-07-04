@@ -14,13 +14,7 @@ function City() {
   const { currentCity, fetchCity, isLoading, error } = useCities();
 
   useEffect(() => {
-    (async function () {
-      try {
-        await fetchCity(id);
-      } catch (error) {
-        console.log(error);
-      }
-    })();
+    fetchCity(id);
   }, [fetchCity, id]);
 
   if (isLoading) return <Spinner />;
