@@ -1,11 +1,7 @@
 import { Link } from "react-router-dom";
 import styles from "./Homepage.module.css";
 import PageNav from "../components/PageNav";
-import { useAuth } from "../context/FakeAuthContext";
 export default function Homepage() {
-  const { name } = useAuth();
-
-  console.log(name);
   return (
     <main className={styles.homepage}>
       <PageNav />
