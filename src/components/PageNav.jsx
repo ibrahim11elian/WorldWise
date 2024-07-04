@@ -1,8 +1,9 @@
 import { NavLink } from "react-router-dom";
 import Logo from "./Logo";
 import styles from "./PageNav.module.css";
+import { memo } from "react";
 
-function PageNav() {
+const PageNav = memo(function nav() {
   return (
     <nav className={styles.nav}>
       <Logo />
@@ -21,6 +22,6 @@ function PageNav() {
       </ul>
     </nav>
   );
-}
+});
 
 export default PageNav;
