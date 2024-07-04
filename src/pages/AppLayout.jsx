@@ -10,7 +10,6 @@ function AppLayout() {
   const handleToggleList = () => {
     setIsOpened(() => !isOpened);
   };
-  berpuss;
 
   useEffect(() => {
     function handleResize() {
